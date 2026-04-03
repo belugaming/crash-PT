@@ -1,0 +1,25 @@
+# Core API
+DOMAIN,api.anthropic.com
+DOMAIN,statsig.anthropic.com
+DOMAIN,statsig.com
+DOMAIN-SUFFIX,sentry.io
+
+# Auth
+DOMAIN,claude.ai
+DOMAIN,platform.claude.com
+DOMAIN,console.anthropic.com
+
+# Downloads & Updates
+DOMAIN,downloads.claude.ai
+DOMAIN,storage.googleapis.com
+DOMAIN,registry.npmjs.org
+DOMAIN,raw.githubusercontent.com
+
+# GitHub Integration
+DOMAIN,api.github.com
+DOMAIN-SUFFIX,github.com
+
+# VS Code
+DOMAIN,marketplace.visualstudio.com
+DOMAIN,vscode.blob.core.windows.net
+DOMAIN,update.code.visualstudio.com
