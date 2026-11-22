@@ -1,0 +1,36 @@
+name: 生成 OpenClash 覆写模块
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'test32.ini'
+      - 'scripts/**'
+      - '.github/workflows/openclash.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: test32.ini → openclash/test32.conf
+        run: CDN=1 sh scripts/openclash_module.sh test32.ini openclash/test32.conf
+
+      - name: 有变化就提交
+        run: |
+          git add openclash/test32.conf
+          if git diff --cached --quiet; then
+            echo "模块没有变化"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "自动生成 openclash/test32.conf（来自 ${GITHUB_SHA::7}）"
+          git push
+          # 让 jsDelivr 镜像马上拿到新版本
+          curl -fsS "https://purge.jsdelivr.net/gh/${GITHUB_REPOSITORY}@main/openclash/test32.conf" >/dev/null || true
